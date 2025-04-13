@@ -1,0 +1,63 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Fluxo de Caixa API",
+    "description": "API para gerenciar registros de entradas e saídas de caixa",
+    "version": "1.0.0"
+  },
+  "host": "localhost:5000",
+  "basePath": "/",
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/fluxo_caixa": {
+      "get": {
+        "summary": "Listar registros",
+        "description": "Retorna todos os registros do fluxo de caixa",
+        "responses": {
+          "200": {
+            "description": "Lista de registros"
+          }
+        }
+      },
+      "post": {
+        "summary": "Adicionar registro",
+        "description": "Adiciona um novo registro ao fluxo de caixa",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "descricao": {
+                  "type": "string"
+                },
+                "tipo": {
+                  "type": "string",
+                  "enum": ["entrada", "saida"]
+                },
+                "valor": {
+                  "type": "number"
+                }
+              },
+              "required": ["descricao", "tipo", "valor"]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Registro criado com sucesso"
+          },
+          "400": {
+            "description": "Dados inválidos"
+          }
+        }
+      }
+    },
+    "/fluxo_caixa/{id}": {
+      "delete": {
+        "summary": "Deletar registro",
+        "description": "Remove um registro
